@@ -1,3 +1,13 @@
+/* Layout */
 .navbar-brand {
     width: 100px;
+}
+
+/* Index */
+.wrapper{
+    margin: 0.2em 1em;
+}
+
+.main-area img{
+    max-height: 220px;
 }
