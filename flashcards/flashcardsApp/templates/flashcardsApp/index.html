@@ -2,33 +2,31 @@
 {% load static %}
 
 {% block body %}
-    <div class="wrapper">
-        <!-- Page Title -->
-        <h1>Flashcards</h1>
+    
+<!-- Page Title -->
+<h1>Flashcards</h1>
 
-        <!-- Main area -->
-        <div class="main-area row">
-            <div class="col-md-5">
-                <div class="card" >
-                    <div class="card-body">
-                      <h5 class="card-title">Create a new deck</h5>
-                      <p class="card-text">Create an empty deck of cards. You then can add cards to it.</p>
-                      <a href="{% url 'new_deck' %}" class="btn btn-primary">Create a deck</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="card" >
-                    <div class="card-body">
-                      <h5 class="card-title">Create a new card</h5>
-                      <p class="card-text">Create a card and add it to existing deck.</p>
-                      <a href="{% url 'new_card' %}" class="btn btn-primary">Create a card</a>
-                    </div>
-                </div>
+<!-- Main area -->
+<div class="main-area row">
+    <div class="col-md-5">
+        <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">Create a new deck</h5>
+              <p class="card-text">Create an empty deck of cards. You then can add cards to it.</p>
+              <a href="{% url 'new_deck' %}" class="btn btn-primary">Create a deck</a>
             </div>
         </div>
-
     </div>
+    <div class="col-md-5">
+        <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">Create a new card</h5>
+              <p class="card-text">Create a card and add it to existing deck.</p>
+              <a href="{% url 'new_card' %}" class="btn btn-primary">Create a card</a>
+            </div>
+        </div>
+    </div>
+</div>
     
 
 

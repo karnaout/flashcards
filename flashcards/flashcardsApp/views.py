@@ -77,7 +77,7 @@ def user(request, username):
     return HttpResponseRedirect(reverse("index"))
 
 def new_deck(request):
-    return HttpResponse('New Deck Page')
+    return render(request, "flashcardsApp/new_deck.html")
 
 def new_card(request):
-    return HttpResponse('New Card Page')
+    return render(request, "flashcardsApp/new_card.html")

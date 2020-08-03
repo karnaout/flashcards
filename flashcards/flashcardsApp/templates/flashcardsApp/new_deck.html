@@ -1,0 +1,12 @@
+{% extends "flashcardsApp/layout.html" %}
+
+{% block body %}
+
+    <h2>Create a new Deck</h2>
+
+    <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        <input class="btn btn-primary" type="submit" value="Create Listing">
+    </form>
+
+{% endblock %}
