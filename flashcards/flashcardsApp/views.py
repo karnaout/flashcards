@@ -75,3 +75,9 @@ def user(request, username):
         raise Http404("User does not exist.")
     # return show_posts(user.username, request, posts, profile=user)
     return HttpResponseRedirect(reverse("index"))
+
+def new_deck(request):
+    return HttpResponse('New Deck Page')
+
+def new_card(request):
+    return HttpResponse('New Card Page')
