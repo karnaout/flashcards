@@ -7,7 +7,7 @@
     {% if decks %}
         <ul>
             {% for deck in decks %}
-                <li>{{deck.title}}</li>
+                <li>{{deck.title}}  -  <a href="{% url 'edit_deck' deck.id %}">edit</a></li>
             {% endfor %}
         </ul>
     {% else %}

@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .models import *
+
+from .forms import DeckForm
 
 
 # Create your views here.
@@ -78,7 +80,38 @@ def user(request, username):
     return HttpResponseRedirect(reverse("index"))
 
 def new_deck(request):
-    return render(request, "flashcardsApp/new_deck.html")
+    if request.method == 'POST':
+        form = DeckForm(request.POST)
+
+        # check if form is valid
+        if form.is_valid():
+            form.save()
+            
+    else:
+        form = DeckForm()
+
+    context = {'form': form}
+    return render(request, 'flashcardsApp/new_deck.html', context)
+
+def edit_deck(request, deck_id):
+    deck_obj = get_object_or_404(Deck, id=deck_id )
+    if request.method == 'POST':
+        form = DeckForm(request.POST, instance=deck_obj)
+
+        # check if form is valid
+        if form.is_valid():
+            form.save()
+            
+    else:
+        form = DeckForm(instance=deck_obj)
+
+    context = {'form': form, 'edit_mode': True, 'deck_obj': deck_obj}
+    return render(request, 'flashcardsApp/new_deck.html', context)
+
+def delDeck(request, deck_id):
+    deck_obj = get_object_or_404(Deck, id=deck_id)
+    deck_obj.delete()
+    return render(request, 'flashcardsApp/view_decks.html')
 
 def view_decks(request):
     '''
@@ -90,7 +123,13 @@ def view_decks(request):
     return render(request, "flashcardsApp/view_decks.html", context)    
 
 def new_card(request):
-    return render(request, "flashcardsApp/new_card.html")
+    if request.method == 'POST':
+        print('**********')
+        print(request.POST)
+        print('**********')
+    
+    context = {}
+    return render(request, "flashcardsApp/new_card.html", context)
 
 def view_cards(request):
     '''
