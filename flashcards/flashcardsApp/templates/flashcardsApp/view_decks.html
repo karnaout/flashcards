@@ -1,0 +1,18 @@
+{% extends "flashcardsApp/layout.html" %}
+
+{% block body %}
+
+    <h2>View Decks</h2>
+
+    {% if decks %}
+        <ul>
+            {% for deck in decks %}
+                <li>{{deck.title}}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>No decks found</h3>
+    {% endif %}
+
+
+{% endblock %}

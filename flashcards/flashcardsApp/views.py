@@ -1,5 +1,3 @@
-import json
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -8,14 +6,17 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonRespons
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import *
 
 
 # Create your views here.
 def index(request):
-    return render(request, "flashcardsApp/index.html", {
-        "title": 'title3'
-    })
+    '''
+    Renders the Flashcards home page template
+    '''
+
+    context = {}
+    return render(request, "flashcardsApp/index.html", context)
 
 def login_view(request):
     if request.method == "POST":
@@ -79,5 +80,23 @@ def user(request, username):
 def new_deck(request):
     return render(request, "flashcardsApp/new_deck.html")
 
+def view_decks(request):
+    '''
+    Renders the Flashcards view decks page
+    '''
+    
+    decks = Deck.objects.order_by('-title')
+    context = {'decks': decks}
+    return render(request, "flashcardsApp/view_decks.html", context)    
+
 def new_card(request):
     return render(request, "flashcardsApp/new_card.html")
+
+def view_cards(request):
+    '''
+    Renders the Flashcards view cards page
+    '''
+    
+    cards = Card.objects.order_by('-question')
+    context = {'cards': cards}
+    return render(request, "flashcardsApp/view_cards.html", context)
