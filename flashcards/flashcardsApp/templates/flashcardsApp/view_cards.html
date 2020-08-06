@@ -7,7 +7,7 @@
     {% if cards %}
     <ul>
         {% for card in cards %}
-            <li>{{card}}</li>
+            <li>{{card.question}}  -  <a href="{% url 'edit_card' card.id %}">edit</a></li>
         {% endfor %}
     </ul>
 {% else %}

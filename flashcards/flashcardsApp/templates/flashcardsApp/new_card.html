@@ -2,12 +2,30 @@
 
 {% block body %}
 
+    {% if not edit_mode %}
     <h2>Create a new card</h2>
 
     <form method="post">
         {% csrf_token %}
-        
-        <input class="btn btn-primary" type="submit" value="Create Card">
+        {{ form.as_p }}
+        <input id="new_card" class="btn btn-primary" type="submit" value="Create card">
     </form>
+    {% endif %}
+
+    {% if edit_mode %}
+        <h2>Edit <span class="text-danger">{{ card_obj.question }}</span></h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input id="new_card" class="btn btn-primary" type="submit" value="Edit card">
+        </form>
+
+        <hr>
+
+        <p>You can delete your card here</p>
+        <a href="{% url 'delete_card' card_obj.id %}" class="btn btn-danger">Delete this card</a>
+
+    {% endif %}
 
 {% endblock %}

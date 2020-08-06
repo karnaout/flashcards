@@ -2,18 +2,27 @@
 
 {% block body %}
 
+    {% if not edit_mode %}
     <h2>Create a new Deck</h2>
 
-    <form action="{% url 'view_decks' %}" method="post">
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input class="btn btn-primary" type="submit" value="Submit Form">
+        <input id="new_card" class="btn btn-primary" type="submit" value="Create deck">
     </form>
-
-    <hr>
-
+    {% endif %}
     {% if edit_mode %}
-    
+        <h2>Edit <span class="text-danger">{{ deck_obj.title }}</span></h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input id="new_card" class="btn btn-primary" type="submit" value="Edit deck">
+        </form>
+
+        <hr>
+
+
         <p>You can delete your deck here</p>
         <a href="{% url 'delete_deck' deck_obj.id %}" class="btn btn-danger">Delete</a>
 

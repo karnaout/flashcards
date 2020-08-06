@@ -1,0 +1,14 @@
+{% extends "flashcardsApp/layout.html" %}
+
+{% block body %}
+
+    <h2>{{ deck_obj }}</h2>
+
+    {% if card_obj %}
+    <p>{{ card_obj.question}}</p>
+    <p>{{ card_obj.answer}}</p>
+{% else %}
+    <h3>Sorry your card is missing try to create a new one</h3>
+{% endif %}
+
+{% endblock %}

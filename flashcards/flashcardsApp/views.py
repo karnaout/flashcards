@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from .models import *
 
-from .forms import DeckForm
+from .forms import DeckForm, CardForm
 
 
 # Create your views here.
@@ -85,8 +85,13 @@ def new_deck(request):
 
         # check if form is valid
         if form.is_valid():
-            form.save()
-            
+            title = form.cleaned_data['title']
+            desc = form.cleaned_data['desc']
+            is_active = form.cleaned_data['is_active']
+
+            deck = Deck(title=title, desc=desc, is_active=is_active)
+            deck.save()
+            return HttpResponseRedirect(reverse("view_decks"))
     else:
         form = DeckForm()
 
@@ -101,7 +106,7 @@ def edit_deck(request, deck_id):
         # check if form is valid
         if form.is_valid():
             form.save()
-            
+        return HttpResponseRedirect(reverse("view_decks"))    
     else:
         form = DeckForm(instance=deck_obj)
 
@@ -111,7 +116,7 @@ def edit_deck(request, deck_id):
 def delDeck(request, deck_id):
     deck_obj = get_object_or_404(Deck, id=deck_id)
     deck_obj.delete()
-    return render(request, 'flashcardsApp/view_decks.html')
+    return HttpResponseRedirect(reverse("view_decks"))  
 
 def view_decks(request):
     '''
@@ -120,16 +125,55 @@ def view_decks(request):
     
     decks = Deck.objects.order_by('-title')
     context = {'decks': decks}
-    return render(request, "flashcardsApp/view_decks.html", context)    
+    return render(request, "flashcardsApp/view_decks.html", context)
+
+def view_deck(request, deck_id):
+    deck_obj = get_object_or_404(Deck, id=deck_id)
+    card_list = deck_obj.card_set.all()
+    card_obj = card_list.first()
+
+    context = {''}
+    return render(request, 'flashcardsApp/viewDeck.html', context)
 
 def new_card(request):
     if request.method == 'POST':
-        print('**********')
-        print(request.POST)
-        print('**********')
+        form = CardForm(request.POST)
+        if form.is_valid():
+            deck_name = form.cleaned_data['deck']
+            question = form.cleaned_data['question']
+            answer = form.cleaned_data['answer']
+            is_active = form.cleaned_data['is_active']
+            
+            card = Card(deck=deck_name, question=question, answer= answer, is_active= is_active)
+            card.save()
+            return HttpResponseRedirect(reverse("view_cards"))
+    else:
+        form = CardForm()
     
-    context = {}
+    context = {'form': form}
     return render(request, "flashcardsApp/new_card.html", context)
+
+def edit_card(request, card_id):
+    card_obj = get_object_or_404(Card, id=card_id )
+    if request.method == 'POST':
+        form = CardForm(request.POST, instance=card_obj)
+
+        # check if form is valid
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(reverse("view_cards"))    
+    else:
+        form = CardForm(instance=card_obj)
+
+    context = {'form': form, 'edit_mode': True, 'card_obj': card_obj}
+    return render(request, 'flashcardsApp/new_card.html', context)
+
+
+
+def del_card(request, card_id):
+    card_obj = get_object_or_404(Card, id=card_id)
+    card_obj.delete()
+    return HttpResponseRedirect(reverse("view_cards"))  
 
 def view_cards(request):
     '''

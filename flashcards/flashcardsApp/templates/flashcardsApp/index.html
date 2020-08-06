@@ -4,11 +4,14 @@
 {% block body %}
     
 <!-- Page Title -->
-<h1>Flashcards</h1>
+<h1 id="home_heading">Flashcards</h1>
+<button id="toggle_view_button" onclick="toggleView()" class="badge badge-info">Grid view</button>
+
+<hr>
 
 <!-- Main area -->
 <div class="main-area row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="card" >
             <div class="card-body">
               <h5 class="card-title">Create a new deck</h5>
@@ -17,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="card" >
             <div class="card-body">
               <h5 class="card-title">Create a new card</h5>
@@ -27,7 +30,7 @@
         </div>
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="card" >
             <div class="card-body">
               <h5 class="card-title">View all Decks</h5>
@@ -36,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="card" >
             <div class="card-body">
               <h5 class="card-title">View all Cards</h5>
@@ -47,7 +50,4 @@
     </div>
 </div>
     
-
-
-    <script src="{% static 'flashcardsApp/scripts.js' %}"></script>
 {% endblock %}

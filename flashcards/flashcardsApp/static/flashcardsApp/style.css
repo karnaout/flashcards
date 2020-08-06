@@ -3,6 +3,10 @@
     width: 100px;
 }
 
+hr{
+    margin: 1rem 0 3rem 0;
+}
+
 /* Index */
 .wrapper{
     margin: 0.2em 1em;
@@ -10,4 +14,8 @@
 
 .main-area img{
     max-height: 220px;
+}
+
+#home_heading{
+    display: inline;
 }

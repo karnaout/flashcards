@@ -1,0 +1,18 @@
+{% extends "flashcardsApp/layout.html" %}
+
+{% block body %}
+
+    <h2>{{ deck_obj }}</h2>
+    <hr>
+    {% if decks %}
+        <ul>
+            {% for deck in decks %}
+                <li>{{deck.title}}  -  <a href="{% url 'edit_deck' deck.id %}">edit</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>No deck found</h3>
+    {% endif %}
+
+
+{% endblock %}
